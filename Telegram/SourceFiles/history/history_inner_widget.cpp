@@ -48,6 +48,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 #include "data/data_photo.h"
 #include "data/data_user.h"
 #include "boxes/speech_box.h"
+#include "chat_helpers/speech_to_text.h"
 
 namespace {
 
@@ -1559,7 +1560,13 @@ void HistoryInner::showContextMenu(QContextMenuEvent *e, bool showFromTouch) {
 
 		if(lnkIsVoice) {
             _menu->addAction("Speech to text", [=] {
-				Ui::show(Box<SpeechBox>("Привет Артем"));
+            	SpeechToText* instance = SpeechToText::create_instance();
+            	QObject::connect(instance, &SpeechToText::recognized, this, [](QString message) {
+					Ui::show(Box<SpeechBox>(message));
+            	});
+
+            	instance->execute(itemId, document.get());
+				//document->save(itemId, "xxx");
             });
 		}
 
