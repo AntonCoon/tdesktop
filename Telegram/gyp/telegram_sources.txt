@@ -14,6 +14,8 @@
 <(src_loc)/boxes/peers/edit_peer_permissions_box.h
 <(src_loc)/boxes/about_box.cpp
 <(src_loc)/boxes/about_box.h
+<(src_loc)/boxes/speech_box.cpp
+<(src_loc)/boxes/speech_box.h
 <(src_loc)/boxes/abstract_box.cpp
 <(src_loc)/boxes/abstract_box.h
 <(src_loc)/boxes/add_contact_box.cpp

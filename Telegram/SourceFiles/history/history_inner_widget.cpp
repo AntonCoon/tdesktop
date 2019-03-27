@@ -47,6 +47,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 #include "data/data_poll.h"
 #include "data/data_photo.h"
 #include "data/data_user.h"
+#include "boxes/speech_box.h"
 
 namespace {
 
@@ -1555,6 +1556,15 @@ void HistoryInner::showContextMenu(QContextMenuEvent *e, bool showFromTouch) {
 				showContextInFolder(document);
 			});
 		}
+
+		if(lnkIsVoice) {
+            _menu->addAction("Speech to text", [=] {
+				Ui::show(Box<SpeechBox>("Привет Артем"));
+
+            	//QMessageBox::information(nullptr, "Speech to text", "Привет Артем");
+            });
+		}
+
 		_menu->addAction(lang(lnkIsVideo ? lng_context_save_video : (lnkIsVoice ? lng_context_save_audio : (lnkIsAudio ? lng_context_save_audio_file : lng_context_save_file))), App::LambdaDelayed(st::defaultDropdownMenu.menu.ripple.hideDuration, this, [=] {
 			saveDocumentToFile(itemId, document);
 		}));
