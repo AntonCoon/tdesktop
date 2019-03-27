@@ -5,7 +5,7 @@
 #include "speech_to_text.h"
 #include <QProcess>
 #include <QTimer>
-
+#include "data/data_document.h"
 #include "boxes/abstract_box.h"
 
 

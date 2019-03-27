@@ -6,7 +6,6 @@
 #define TELEGRAM_SPEECHTOTEXT_H
 
 #include <QObject>
-#include "data/data_document.h"
 
 class SpeechToText : public QObject {
     Q_OBJECT

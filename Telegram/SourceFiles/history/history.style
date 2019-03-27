@@ -113,6 +113,10 @@ historyFileOutPlay: icon {{ "history_file_play", historyFileOutIconFg }};
 historyFileOutPlaySelected: icon {{ "history_file_play", historyFileOutIconFgSelected }};
 historyFileInPlay: icon {{ "history_file_play", historyFileInIconFg }};
 historyFileInPlaySelected: icon {{ "history_file_play", historyFileInIconFgSelected }};
+historyViewsIn: icon {{ "history_views", historyFileInIconFg }};
+historyViewsInSelected: icon {{ "history_views", historyFileInIconFgSelected }};
+historyViewsOut: icon {{ "history_views", historyFileOutIconFg }};
+historyViewsOutSelected: icon {{ "history_views", historyFileOutIconFgSelected }};
 
 historyFileThumbDownload: icon {{ "history_file_download", historyFileThumbIconFg }};
 historyFileThumbDownloadSelected: icon {{ "history_file_download", historyFileThumbIconFgSelected }};

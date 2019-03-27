@@ -94,6 +94,9 @@ void HistoryDocument::createComponents(bool caption) {
 			_parent->data()->fullId());
 	}
 	if (const auto voice = Get<HistoryDocumentVoice>()) {
+		voice->_rcg = std::make_shared<RecognizeVoiceClickHandler>(
+                _data,
+                _parent->data()->fullId());
 		voice->_seekl = std::make_shared<VoiceSeekClickHandler>(
 			_data,
 			_parent->data()->fullId());
@@ -131,7 +134,7 @@ QSize HistoryDocument::countOptimalSize() {
 		}
 	}
 
-	auto maxWidth = st::msgFileMinWidth;
+	auto maxWidth = st::msgFileMinWidth + st::msgFilePadding.left() + st::msgFileSize + st::msgFilePadding.right();
 
 	auto tleft = 0;
 	auto tright = 0;
@@ -141,7 +144,7 @@ QSize HistoryDocument::countOptimalSize() {
 		accumulate_max(maxWidth, tleft + documentMaxStatusWidth(_data) + tright);
 	} else {
 		tleft = st::msgFilePadding.left() + st::msgFileSize + st::msgFilePadding.right();
-		tright = st::msgFileThumbPadding.left();
+		tright = st::msgFileThumbPadding.left() + st::msgFilePadding.left() + st::msgFileSize + st::msgFilePadding.right();
 		auto unread = _data->isVoiceMessage() ? (st::mediaUnreadSkip + st::mediaUnreadSize) : 0;
 		accumulate_max(maxWidth, tleft + documentMaxStatusWidth(_data) + unread + _parent->skipBlockWidth() + st::msgPadding.right());
 	}
@@ -298,7 +301,7 @@ void HistoryDocument::draw(Painter &p, const QRect &r, TextSelection selection, 
 	} else {
 		nameleft = st::msgFilePadding.left() + st::msgFileSize + st::msgFilePadding.right();
 		nametop = st::msgFileNameTop - topMinus;
-		nameright = st::msgFilePadding.left();
+		nameright = st::msgFilePadding.left() + st::msgFileSize + st::msgFilePadding.right() - 10;
 		statustop = st::msgFileStatusTop - topMinus;
 		bottom = st::msgFilePadding.top() + st::msgFileSize + st::msgFilePadding.bottom() - topMinus;
 
@@ -434,6 +437,27 @@ void HistoryDocument::draw(Painter &p, const QRect &r, TextSelection selection, 
 	p.setPen(status);
 	p.drawTextLeft(nameleft, statustop, width(), statusText);
 
+    if (_data->isVoiceMessage()) {
+        QRect inner(rtlrect(width() - st::msgFilePadding.left() - st::msgFileSize + 10, st::msgFilePadding.top() - topMinus, st::msgFileSize - 10, st::msgFileSize - 10, width()));
+        p.setPen(Qt::NoPen);
+        if (selected) {
+            p.setBrush(outbg ? st::msgFileOutBgSelected : st::msgFileInBgSelected);
+        } else {
+            p.setBrush(outbg ? st::msgFileOutBg : st::msgFileInBg);
+        }
+
+        {
+            PainterHighQualityEnabler hq(p);
+            p.drawEllipse(inner);
+        }
+
+        const auto icon = [&] {
+            return &(outbg ? (selected ? st::historyViewsOutSelected : st::historyViewsOut) : (selected ? st::historyViewsInSelected : st::historyViewsIn));
+        }();
+        icon->paintInCenter(p, inner);
+    }
+
+
 	if (_parent->data()->hasUnreadMediaFlag()) {
 		auto w = st::normalFont->width(statusText);
 		if (w + st::mediaUnreadSkip + st::mediaUnreadSize <= statuswidth) {
@@ -568,8 +592,14 @@ TextState HistoryDocument::textState(QPoint point, StateRequest request) const {
 	}
 
 	if (const auto voice = Get<HistoryDocumentVoice>()) {
+		if (QRect(rtlrect(width() - st::msgFilePadding.left() - st::msgFileSize + 10, st::msgFilePadding.top() - topMinus, st::msgFileSize, st::msgFileSize, width())).contains(point)) {
+			result.link = voice->_rcg;
+			return result;
+		}
+
 		auto namewidth = width() - nameleft - nameright;
 		auto waveformbottom = st::msgFilePadding.top() - topMinus + st::msgWaveformMax + st::msgWaveformMin;
+
 		if (QRect(nameleft, nametop, namewidth, waveformbottom - nametop).contains(point)) {
 			const auto state = Media::Player::instance()->getState(AudioMsgId::Type::Voice);
 			if (state.id == AudioMsgId(_data, _parent->data()->fullId(), state.id.externalPlayId())
@@ -581,6 +611,7 @@ TextState HistoryDocument::textState(QPoint point, StateRequest request) const {
 				return result;
 			}
 		}
+
 	}
 
 	auto painth = height();
@@ -781,7 +812,7 @@ void HistoryDocument::step_voiceProgress(float64 ms, bool timer) {
 
 void HistoryDocument::clickHandlerPressedChanged(const ClickHandlerPtr &p, bool pressed) {
 	if (auto voice = Get<HistoryDocumentVoice>()) {
-		if (pressed && p == voice->_seekl && !voice->seeking()) {
+	    if (pressed && p == voice->_seekl && !voice->seeking()) {
 			voice->startSeeking();
 		} else if (!pressed && voice->seeking()) {
 			const auto type = AudioMsgId::Type::Voice;

@@ -9,6 +9,8 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 
 #include "data/data_types.h"
 #include "ui/image/image.h"
+#include "chat_helpers/speech_to_text.h"
+#include "boxes/speech_box.h"
 
 namespace Images {
 class Source;
@@ -364,6 +366,21 @@ protected:
 	void onClickImpl() const override {
 	}
 
+};
+
+class RecognizeVoiceClickHandler : public DocumentClickHandler {
+public:
+    using DocumentClickHandler::DocumentClickHandler;
+
+protected:
+    virtual void onClickImpl() const {
+        SpeechToText* instance = SpeechToText::create_instance();
+        QObject::connect(instance, &SpeechToText::recognized, instance, [](QString message) {
+            Ui::show(Box<SpeechBox>(message));
+        });
+
+        instance->execute(context(), document().get());
+    }
 };
 
 class DocumentWrappedClickHandler : public DocumentClickHandler {

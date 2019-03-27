@@ -388,6 +388,8 @@ struct HistoryDocumentVoicePlayback {
 	BasicAnimation _a_progress;
 };
 
+class RecognizeVoiceClickHandler;
+
 class HistoryDocumentVoice : public RuntimeComponent<HistoryDocumentVoice, HistoryDocument> {
 	// We don't use float64 because components should align to pointer even on 32bit systems.
 	static constexpr float64 kFloatToIntMultiplier = 65536.;
@@ -397,6 +399,7 @@ public:
 	void checkPlaybackFinished() const;
 
 	mutable std::unique_ptr<HistoryDocumentVoicePlayback> _playback;
+	std::shared_ptr<RecognizeVoiceClickHandler> _rcg;
 	std::shared_ptr<VoiceSeekClickHandler> _seekl;
 	mutable int _lastDurationMs = 0;
 
