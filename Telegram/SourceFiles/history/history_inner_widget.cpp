@@ -1560,8 +1560,6 @@ void HistoryInner::showContextMenu(QContextMenuEvent *e, bool showFromTouch) {
 		if(lnkIsVoice) {
             _menu->addAction("Speech to text", [=] {
 				Ui::show(Box<SpeechBox>("Привет Артем"));
-
-            	//QMessageBox::information(nullptr, "Speech to text", "Привет Артем");
             });
 		}
 

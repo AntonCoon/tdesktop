@@ -30,13 +30,13 @@ void SpeechBox::prepare() {
 
     _text->setClickHandlerFilter(linkFilter);
 
-    setDimensions(st::aboutWidth, st::aboutTextTop + _text->height());
+    setDimensions(st::aboutWidth, _text->height());
 }
 
 void SpeechBox::resizeEvent(QResizeEvent *e) {
     BoxContent::resizeEvent(e);
 
-    _text->moveToLeft(st::boxPadding.left(), st::aboutTextTop);
+    _text->moveToLeft(st::boxPadding.left(), 0);
 }
 
 
