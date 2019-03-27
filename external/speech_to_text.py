@@ -14,17 +14,25 @@ parser.add_argument('--input', help='path to ogg voice message')
 
 parser.add_argument('--config', help='path to your google cloud config')
 
+parser.add_argument('--opus', help='is your file in opus format')
+
 args = vars(parser.parse_args())
 
 path_to_config = args['config']
 path_to_input_ogg = args['input']
+is_opus = args['opus'] == 'T'
+encoding = None
 
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = path_to_config
 
-# Save OGG to one channel WAV
-dest_WAV_filename = path_to_input_ogg + '.wav'
-
-process = subprocess.run(['ffmpeg', '-i', path_to_input_ogg, dest_WAV_filename])
+if not is_opus:
+    # Save OGG to one channel WAV
+    encoding = enums.RecognitionConfig.AudioEncoding.LINEAR16
+    dest_WAV_filename = path_to_input_ogg + '.wav'
+    process = subprocess.run(['ffmpeg', '-i', path_to_input_ogg, dest_WAV_filename])
+else:
+    encoding = enums.RecognitionConfig.AudioEncoding.OGG_OPUS
+    dest_WAV_filename = path_to_input_ogg
 
 client = speech.SpeechClient()
 
@@ -34,7 +42,7 @@ with io.open(dest_WAV_filename, 'rb') as audio_file:
     audio = types.RecognitionAudio(content=content)
 
 config = types.RecognitionConfig(
-    encoding=enums.RecognitionConfig.AudioEncoding.LINEAR16,
+    encoding=encoding,
     sample_rate_hertz=48000,
     language_code='ru-RU')
 
