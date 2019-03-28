@@ -25,6 +25,7 @@
       'linux_path_breakpad%': '/usr/local',
       'linux_path_opus_include%': '<(libs_loc)/opus/include',
       'linux_path_range%': '/usr/local',
+      'linux_path_GOOGLEAPIS_GENS_PATH%': '/home/akhoroshev/Documents/googleapis/gens',
     },
     'include_dirs': [
       '/usr/local/include',
@@ -33,6 +34,7 @@
       '<(linux_path_breakpad)/include/breakpad',
       '<(linux_path_opus_include)',
       '<(linux_path_range)/include',
+      '<(linux_path_GOOGLEAPIS_GENS_PATH)',
     ],
     'library_dirs': [
       '/usr/local/lib',
@@ -63,6 +65,13 @@
       'libvdpau.a',
       'libdrm.a',
       'libz.a',
+      '-lbsd',
+      '-luuid',
+      'libgoogleapis.a',
+      '-lprotobuf',
+      '-ldl',
+      '-lgrpc',
+      '-lgrpc++',
 #      '<!(pkg-config 2> /dev/null --libs <@(pkgconfig_libs))',
     ],
     'cflags_cc': [

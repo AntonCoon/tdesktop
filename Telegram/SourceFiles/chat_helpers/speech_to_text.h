@@ -7,6 +7,9 @@
 
 #include <QObject>
 
+#include "data/data_types.h"
+
+
 class SpeechToText : public QObject {
     Q_OBJECT
 public:
