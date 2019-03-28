@@ -31,15 +31,15 @@ headers = {
 
 params = {
   "config": {
-    'languageCode': 'ru-RU',
+    'languageCode': 'ru',
   },
   "audio": {
     'content': audio
   }
 }
-
+api_key = os.environ["GOOGLE_APPLICATION_API_KEY"]
 response = requests.post(
-        'https://speech.googleapis.com/v1/speech:recognize?key=AIzaSyCPO8vOXzgNuOaCG8A6QYCcNf3IohXxSJg',
+        'https://speech.googleapis.com/v1/speech:recognize?key=%s' % api_key,
         data=json.dumps(params),
         headers=headers,
         timeout=5
