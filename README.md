@@ -48,6 +48,11 @@ The source code is published under GPLv3 with OpenSSL exception, the license is 
 * [Xcode 10][xcode]
 * [GYP/CMake on GNU/Linux][cmake]
 
+## TDesktop with built in voice message transcription
+Voice message transcription with google Cloud Speech-to-Text basics
+[![Preview of transcript button][]][transcript_demo_1]
+
+
 [//]: # (LINKS)
 [telegram]: https://telegram.org
 [telegram_desktop]: https://desktop.telegram.org
@@ -61,6 +66,8 @@ The source code is published under GPLv3 with OpenSSL exception, the license is 
 [preview_image]: https://github.com/telegramdesktop/tdesktop/blob/dev/docs/assets/preview.png "Preview of Telegram Desktop"
 [preview_image_url]: https://raw.githubusercontent.com/telegramdesktop/tdesktop/dev/docs/assets/preview.png
 
-## TDesktop with built in voice message transcription
-Voice message transcription with google Cloud Speech-to-Text basics
-[![Preview of Telegram Desktop][preview_image]][preview_image_url]
+[transcript_demo_1]: https://github.com/AntonCoon/tdesktop/blob/dev/demonstration/1.png 
+[transcript_demo_2]: https://github.com/AntonCoon/tdesktop/blob/dev/demonstration/2.png
+[transcript_demo_3]: https://github.com/AntonCoon/tdesktop/blob/dev/demonstration/3.png
+[transcript_demo_4]: https://github.com/AntonCoon/tdesktop/blob/dev/demonstration/4.png
+
