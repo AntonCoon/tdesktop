@@ -49,8 +49,11 @@ The source code is published under GPLv3 with OpenSSL exception, the license is 
 * [GYP/CMake on GNU/Linux][cmake]
 
 ## TDesktop with built in voice message transcription
-Voice message transcription with google Cloud Speech-to-Text basics
+Voice message transcription with google Cloud Speech-to-Text recognition. It's simple to use
+### Just click on eye label
 [![Preview of transcript button][transcript_demo_1]][transcript_demo_1_url]
+### And you'll see transcription
+[![Preview of transcription][transcript_demo_2]][transcript_demo_2_url]
 
 
 [//]: # (LINKS)
@@ -69,6 +72,9 @@ Voice message transcription with google Cloud Speech-to-Text basics
 [transcript_demo_1]: https://github.com/AntonCoon/tdesktop/blob/dev/demonstration/1.png
 [transcript_demo_1_url]: https://raw.githubusercontent.com/AntonCoon/tdesktop/dev/demonstration/1.png 
 [transcript_demo_2]: https://github.com/AntonCoon/tdesktop/blob/dev/demonstration/2.png
+[transcript_demo_2_url]: https://raw.githubusercontent.com/AntonCoon/tdesktop/dev/demonstration/2.png
 [transcript_demo_3]: https://github.com/AntonCoon/tdesktop/blob/dev/demonstration/3.png
+[transcript_demo_3_url]: https://raw.githubusercontent.com/AntonCoon/tdesktop/dev/demonstration/3.png
 [transcript_demo_4]: https://github.com/AntonCoon/tdesktop/blob/dev/demonstration/4.png
+[transcript_demo_4_url]: https://raw.githubusercontent.com/AntonCoon/tdesktop/dev/demonstration/4.png
 
