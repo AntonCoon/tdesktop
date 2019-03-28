@@ -775,6 +775,32 @@ bool DocumentData::displayLoading() const {
 		: (uploading() && !waitingForAlbum());
 }
 
+bool DocumentData::isSpeechRecognizing() const
+{
+    return _isSpeechRecognizing;
+}
+
+void DocumentData::startSpeechRecognizing()
+{
+    _isSpeechRecognizing = true;
+}
+
+void DocumentData::finishSpeechRecognizing(QString speech_text)
+{
+    _isSpeechRecognizing = false;
+    _recognizedSpeech = speech_text;
+}
+
+QString DocumentData::getRecognizedSpeech() const
+{
+    return _recognizedSpeech;
+}
+
+FileLoader* DocumentData::getFileLoader() const
+{
+    return _loader;
+}
+
 float64 DocumentData::progress() const {
 	if (uploading()) {
 		if (uploadingData->size > 0) {

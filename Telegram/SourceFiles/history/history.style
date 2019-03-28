@@ -536,6 +536,11 @@ historyPollRadialAnimation: InfiniteRadialAnimation(defaultInfiniteRadialAnimati
 	thickness: 2px;
 	size: size(18px, 18px);
 }
+historySpeechRadialAnimation: InfiniteRadialAnimation(defaultInfiniteRadialAnimation) {
+	thickness: 2px;
+	size: size(34px, 34px);
+	color: historyFileInIconFgSelected;
+}
 historyPollRippleIn: RippleAnimation(defaultRippleAnimation) {
 	color: msgWaveformInInactive;
 }

@@ -22,6 +22,9 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 #include "data/data_document.h"
 #include "data/data_media_types.h"
 #include "styles/style_history.h"
+#include "styles/style_widgets.h"
+#include "../../../../out/Debug/obj/gen/styles/style_widgets.h"
+#include "../../../../out/Debug/obj/gen/styles/style_history.h"
 
 namespace {
 
@@ -455,6 +458,20 @@ void HistoryDocument::draw(Painter &p, const QRect &r, TextSelection selection, 
             return &(outbg ? (selected ? st::historyViewsOutSelected : st::historyViewsOut) : (selected ? st::historyViewsInSelected : st::historyViewsIn));
         }();
         icon->paintInCenter(p, inner);
+
+        if (_data->isSpeechRecognizing()) {
+            if (!_speechAnimation) {
+                _speechAnimation = std::make_unique<Ui::InfiniteRadialAnimation>(animation(const_cast<HistoryDocument*>(this), &HistoryDocument::step), st::historySpeechRadialAnimation);
+            }
+
+            if (!_speechAnimation->animating()) {
+                _speechAnimation->start();
+            } else {
+                _speechAnimation->step();
+                QRect rinner(inner.marginsRemoved(QMargins(st::msgFileRadialLine, st::msgFileRadialLine, st::msgFileRadialLine, st::msgFileRadialLine)));
+                _speechAnimation->draw(p, rinner.topLeft(), rinner.size(), st::msgFileRadialLine + 5);
+            }
+        }
     }
 
 
@@ -862,6 +879,15 @@ void HistoryDocument::parentTextUpdated() {
 		RemoveComponents(HistoryDocumentCaptioned::Bit());
 	}
 	history()->owner().requestViewResize(_parent);
+}
+
+void HistoryDocument::step(crl::time ms, bool timer)
+{
+    if (timer) {
+        if (!anim::Disabled()) {
+            history()->owner().requestViewRepaint(_parent);
+        }
+    }
 }
 
 TextWithEntities HistoryDocument::getCaption() const {

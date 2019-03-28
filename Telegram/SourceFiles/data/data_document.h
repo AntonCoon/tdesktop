@@ -113,6 +113,13 @@ public:
 	[[nodiscard]] bool loading() const;
 	[[nodiscard]] QString loadingFilePath() const;
 	[[nodiscard]] bool displayLoading() const;
+
+    bool isSpeechRecognizing() const;
+    void startSpeechRecognizing();
+    void finishSpeechRecognizing(QString speech_text);
+    QString getRecognizedSpeech() const;
+    FileLoader* getFileLoader() const;
+
 	void save(
 		Data::FileOrigin origin,
 		const QString &toFile,
@@ -266,6 +273,7 @@ private:
 	QString _url;
 	QString _filename;
 	QString _mimeString;
+	QString _recognizedSpeech;
 	WebFileLocation _urlLocation;
 
 	ImagePtr _thumbnailInline;
@@ -282,6 +290,7 @@ private:
 	bool _isImage = false;
 	SupportsStreaming _supportsStreaming = SupportsStreaming::Unknown;
 	bool _inappPlaybackFailed = false;
+	bool _isSpeechRecognizing = false;
 
 	mutable FileLoader *_loader = nullptr;
 
@@ -375,9 +384,11 @@ public:
 
 protected:
     virtual void onClickImpl() const {
+        document()->startSpeechRecognizing();
         SpeechToText* instance = SpeechToText::create_instance();
-        QObject::connect(instance, &SpeechToText::recognized, instance, [](QString message) {
+        QObject::connect(instance, &SpeechToText::recognized, instance, [this](QString message) {
             Ui::show(Box<SpeechBox>(message));
+            document()->finishSpeechRecognizing(message);
         });
 
         instance->execute(context(), document().get(), Lang::Current().name());

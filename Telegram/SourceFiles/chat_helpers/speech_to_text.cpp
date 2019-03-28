@@ -16,7 +16,7 @@ public:
     {
         ptr->save(id, "xxx");
 
-        QTimer::singleShot(1000, [this]()
+        QTimer::singleShot(5000, [this]()
         {
             emit recognized("Привет Артем");
             deleteLater();

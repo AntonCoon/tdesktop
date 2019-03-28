@@ -55,6 +55,8 @@ public:
 	void refreshParentId(not_null<HistoryItem*> realParent) override;
 	void parentTextUpdated() override;
 
+    void step(crl::time ms, bool timer);
+
 protected:
 	float64 dataProgress() const override;
 	bool dataFinished() const override;
@@ -83,5 +85,5 @@ private:
 		StateRequest request) const;
 
 	not_null<DocumentData*> _data;
-
+    mutable std::unique_ptr<Ui::InfiniteRadialAnimation> _speechAnimation;
 };
