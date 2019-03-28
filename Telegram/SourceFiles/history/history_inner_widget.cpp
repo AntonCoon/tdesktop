@@ -49,6 +49,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 #include "data/data_user.h"
 #include "boxes/speech_box.h"
 #include "chat_helpers/speech_to_text.h"
+#include "boxes/speech_language_box.h"
 
 namespace {
 
