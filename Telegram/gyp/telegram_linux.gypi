@@ -63,6 +63,8 @@
       'libvdpau.a',
       'libdrm.a',
       'libz.a',
+      '-lbsd',
+      '-luuid',
 #      '<!(pkg-config 2> /dev/null --libs <@(pkgconfig_libs))',
     ],
     'cflags_cc': [
