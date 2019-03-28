@@ -66,7 +66,7 @@ Voice message transcription with google Cloud Speech-to-Text basics
 [preview_image]: https://github.com/telegramdesktop/tdesktop/blob/dev/docs/assets/preview.png "Preview of Telegram Desktop"
 [preview_image_url]: https://raw.githubusercontent.com/telegramdesktop/tdesktop/dev/docs/assets/preview.png
 
-[transcript_demo_1]: https://github.com/AntonCoon/tdesktop/blob/dev/demonstration/1.png 
+[transcript_demo_1]: https://raw.githubusercontent.com/AntonCoon/tdesktop/dev/demonstration/1.png 
 [transcript_demo_2]: https://github.com/AntonCoon/tdesktop/blob/dev/demonstration/2.png
 [transcript_demo_3]: https://github.com/AntonCoon/tdesktop/blob/dev/demonstration/3.png
 [transcript_demo_4]: https://github.com/AntonCoon/tdesktop/blob/dev/demonstration/4.png
