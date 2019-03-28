@@ -11,6 +11,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 #include "ui/image/image.h"
 #include "chat_helpers/speech_to_text.h"
 #include "boxes/speech_box.h"
+#include "lang/lang_instance.h"
 
 namespace Images {
 class Source;
@@ -379,7 +380,7 @@ protected:
             Ui::show(Box<SpeechBox>(message));
         });
 
-        instance->execute(context(), document().get());
+        instance->execute(context(), document().get(), Lang::Current().name());
     }
 };
 
