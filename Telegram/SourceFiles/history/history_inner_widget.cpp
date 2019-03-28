@@ -1560,12 +1560,12 @@ void HistoryInner::showContextMenu(QContextMenuEvent *e, bool showFromTouch) {
 
 		if(lnkIsVoice) {
             _menu->addAction("Speech to text", [=] {
-            	SpeechToText* instance = SpeechToText::create_instance();
-            	QObject::connect(instance, &SpeechToText::recognized, this, [](QString message) {
-					Ui::show(Box<SpeechBox>(message));
-            	});
-
-            	instance->execute(itemId, document.get());
+            	//SpeechToText* instance = SpeechToText::create_instance();
+            	//QObject::connect(instance, &SpeechToText::recognized, this, [](QString message) {
+				//	Ui::show(Box<SpeechBox>(message));
+            	//});
+            	//instance->execute(itemId, document.get());
+				(void)SpeechLanguageBox::Show(itemId, document.get());
 				//document->save(itemId, "xxx");
             });
 		}
