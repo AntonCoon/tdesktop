@@ -54,8 +54,8 @@ Voice message transcription with google Cloud Speech-to-Text recognition built i
 [![Preview of transcript button][transcript_demo_1]][transcript_demo_1_url]
 ### And you'll see transcription
 [![Preview of transcription][transcript_demo_2]][transcript_demo_2_url]
-### By default using russian language, but you able to choose other easily.
-Just click right mouse button and in drop-down menu click on speech to text item
+### By default using russian language, but you able to choose other easily
+Just click right mouse button and in drop-down menu click on **speech to text** item
 [![Preview of transcription][transcript_demo_3]][transcript_demo_3_url]
 Then chose language for transcription 
 [![Preview of transcription][transcript_demo_4]][transcript_demo_4_url]
