@@ -1,4 +1,4 @@
-## Build instructions for GYP/CMake under Ubuntu 14.04
+## Build instructions for GYP/CMake under Ubuntu 18.04
 
 ### Prepare folder
 
@@ -13,17 +13,9 @@ You will require **api_id** and **api_hash** to access the Telegram API servers.
 You will need GCC 7.2 and CMake 3.2 installed. To install them and all the required dependencies run
 
     sudo apt-get install software-properties-common
-    sudo add-apt-repository ppa:ubuntu-toolchain-r/test
-    sudo add-apt-repository ppa:george-edison55/cmake-3.x
-    sudo apt-get update
-    sudo apt-get install gcc-7 g++-7 cmake
-    sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-7 60
-    sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-7 60
-    sudo update-alternatives --config gcc
-    sudo add-apt-repository --remove ppa:ubuntu-toolchain-r/test
-    sudo add-apt-repository --remove ppa:george-edison55/cmake-3.x
+    sudo apt-get install gcc g++ cmake
 
-    sudo apt-get install git libexif-dev liblzma-dev libz-dev libssl-dev libappindicator-dev libicu-dev libdee-dev libdrm-dev dh-autoreconf autoconf automake build-essential libass-dev libfreetype6-dev libgpac-dev libsdl1.2-dev libtheora-dev libtool libva-dev libvdpau-dev libvorbis-dev libxcb1-dev libxcb-image0-dev libxcb-shm0-dev libxcb-xfixes0-dev libxcb-keysyms1-dev libxcb-icccm4-dev libxcb-render-util0-dev libxcb-util0-dev libxrender-dev libasound-dev libpulse-dev libxcb-sync0-dev libxcb-randr0-dev libx11-xcb-dev libffi-dev libncurses5-dev pkg-config texi2html zlib1g-dev yasm cmake xutils-dev bison python-xcbgen
+    sudo apt-get install git libexif-dev liblzma-dev libz-dev libssl1.0-dev libappindicator-dev libunity-dev libicu-dev libdee-dev libdrm-dev dh-autoreconf autoconf automake build-essential libass-dev libfreetype6-dev libgpac-dev libsdl1.2-dev libtheora-dev libtool libva-dev libvdpau-dev libvorbis-dev libxcb1-dev libxcb-image0-dev libxcb-shm0-dev libxcb-xfixes0-dev libxcb-keysyms1-dev libxcb-icccm4-dev libxcb-render-util0-dev libxcb-util0-dev libxrender-dev libasound-dev libpulse-dev libxcb-sync0-dev libxcb-randr0-dev libx11-xcb-dev libffi-dev libncurses5-dev pkg-config texi2html zlib1g-dev yasm cmake xutils-dev bison python-xcbgen libbsd-dev uuid-dev
 
 You can set the multithreaded make parameter by running
 
@@ -37,6 +29,32 @@ Go to ***BuildPath*** and run
 
     mkdir Libraries
     cd Libraries
+    
+    sudo apt-get install libpciaccess-dev
+    git clone https://salsa.debian.org/xorg-team/lib/libdrm
+    cd libdrm
+    git checkout libdrm-2.4.95-1
+    ./autogen.sh
+    ./configure --enable-static
+    make
+    sudo make install
+    cd ..
+    
+    wget https://launchpad.net/ubuntu/+archive/primary/+sourcefiles/libsm/2:1.2.1-2/libsm_1.2.1.orig.tar.gz
+    tar -xzvf libsm_1.2.1.orig.tar.gz
+    cd libSM-1.2.1
+    ./configure
+    make $MAKE_THREADS_CNT
+    sudo make install
+    cd ..
+    
+    wget https://launchpad.net/ubuntu/+archive/primary/+sourcefiles/libxext/2:1.3.2-1/libxext_1.3.2.orig.tar.gz
+    tar -xzvf libxext_1.3.2.orig.tar.gz
+    cd libXext-1.3.2
+    ./configure
+    make $MAKE_THREADS_CNT
+    sudo make install
+    cd ..
 
     git clone https://github.com/ericniebler/range-v3
 
@@ -201,7 +219,7 @@ Go to ***BuildPath*** and run
 
     git clone https://github.com/openssl/openssl
     cd openssl
-    git checkout OpenSSL_1_0_1-stable
+    git checkout OpenSSL_1_0_2-stable
     ./config
     make $MAKE_THREADS_CNT
     sudo make install

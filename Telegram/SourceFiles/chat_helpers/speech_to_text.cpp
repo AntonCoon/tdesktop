@@ -14,7 +14,7 @@
 class MockSpeechToText : public SpeechToText
 {
 public:
-    void execute(const FullMsgId id, DocumentData *ptr) override
+    void execute(const FullMsgId id, DocumentData *ptr, QString lang) override
     {
         ptr->save(id, "tmp.ogg");
 

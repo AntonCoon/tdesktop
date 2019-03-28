@@ -12,7 +12,7 @@
 class SpeechToText : public QObject {
     Q_OBJECT
 public:
-    virtual void execute(FullMsgId id, DocumentData* ptr) = 0;
+    virtual void execute(FullMsgId id, DocumentData* ptr, QString lang) = 0;
     static SpeechToText* create_instance();
 
 signals:
