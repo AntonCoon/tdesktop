@@ -23,8 +23,6 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 #include "data/data_media_types.h"
 #include "styles/style_history.h"
 #include "styles/style_widgets.h"
-#include "../../../../out/Debug/obj/gen/styles/style_widgets.h"
-#include "../../../../out/Debug/obj/gen/styles/style_history.h"
 
 namespace {
 
