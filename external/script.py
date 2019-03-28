@@ -1,42 +1,51 @@
+import requests
 import io
-import os
+import base64
+import json
 import argparse
 import subprocess
-from google.cloud import speech
-from google.cloud.speech import enums
-from google.cloud.speech import types
+import os
 
 
 parser = argparse.ArgumentParser(
     description='Ogg voice to text transcriptor')
-
 parser.add_argument('--input', help='path to ogg voice message')
 
 args = vars(parser.parse_args())
 
 path_to_input_ogg = args['input']
-
 #os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = path_to_config
-
-encoding = enums.RecognitionConfig.AudioEncoding.LINEAR16
 dest_WAV_filename = path_to_input_ogg + '.wav'
 process = subprocess.run(['ffmpeg', '-i', path_to_input_ogg, dest_WAV_filename])
-
-client = speech.SpeechClient()
 
 # Loads the audio into memory
 with io.open(dest_WAV_filename, 'rb') as audio_file:
     content = audio_file.read()
-    audio = types.RecognitionAudio(content=content)
+    audio = base64.b64encode(content).decode()
     
 os.remove(dest_WAV_filename)
 
-config = types.RecognitionConfig(
-    encoding=encoding,
-    sample_rate_hertz=48000,
-    language_code='ru-RU')
+headers = {
+    "Content-Type": "application/json; charset=utf-8", 
+}
 
-response = client.recognize(config, audio)
+params = {
+  "config": {
+    'languageCode': 'ru-RU',
+  },
+  "audio": {
+    'content': audio
+  }
+}
 
-for result in response.results:
-    print(result.alternatives[0].transcript)
+response = requests.post(
+        'https://speech.googleapis.com/v1/speech:recognize?key=AIzaSyCPO8vOXzgNuOaCG8A6QYCcNf3IohXxSJg',
+        data=json.dumps(params),
+        headers=headers,
+        timeout=5
+    )
+res = response.json()
+if 'results' in res:
+    print(res['results'][0]['alternatives'][0]['transcript'])
+else:
+    print('Failure')
