@@ -25,7 +25,7 @@ You can set the multithreaded make parameter by running
 
 Go to ***BuildPath*** and run
 
-    git clone --recursive https://github.com/telegramdesktop/tdesktop.git
+    git clone --recursive https://github.com/AntonCoon/tdesktop.git
 
     mkdir Libraries
     cd Libraries
@@ -245,7 +245,7 @@ Go to ***BuildPath*** and run
     git clone https://github.com/telegramdesktop/nimf.git
     cd ../../../..
 
-    ./configure -prefix "/usr/local/tdesktop/Qt-5.6.2" -release -force-debug-info -opensource -confirm-license -qt-zlib -qt-libpng -qt-libjpeg -qt-freetype -qt-harfbuzz -qt-pcre -qt-xcb -qt-xkbcommon-x11 -no-opengl -no-gtkstyle -static -openssl-linked -nomake examples -nomake tests
+    OPENSSL_LIBS='-L/usr/local/ssl/lib -lssl -lcrypto' ./configure -prefix "/usr/local/tdesktop/Qt-5.6.2" -release -force-debug-info -opensource -confirm-license -qt-zlib -qt-libpng -qt-libjpeg -qt-freetype -qt-harfbuzz -qt-pcre -qt-xcb -qt-xkbcommon-x11 -no-opengl -no-gtkstyle -static -openssl-linked -nomake examples -nomake tests
 
     make $MAKE_THREADS_CNT
     sudo make install
