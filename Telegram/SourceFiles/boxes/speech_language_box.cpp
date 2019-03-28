@@ -1045,7 +1045,7 @@ void SpeechLanguageBox::openAndCloseBox(const QString language) {
     closeBox();
 
     SpeechToText* instance = SpeechToText::create_instance();
-        QObject::connect(instance, &SpeechToText::recognized, this, [](QString message) {
+        QObject::connect(instance, &SpeechToText::recognized, instance, [](QString message) {
             Ui::show(Box<SpeechBox>(message)); 
     });
 
