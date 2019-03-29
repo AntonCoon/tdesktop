@@ -29,6 +29,7 @@ public:
         if (apiKey.isEmpty()) {
             emit recognized("Api key not found");
             deleteLater();
+            return;
         }
 
         ptr->save(id, "tested.ogg");
